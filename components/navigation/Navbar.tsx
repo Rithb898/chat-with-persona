@@ -1,15 +1,10 @@
 import React from "react";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
 import { Download, MoreVertical, Trash2 } from "lucide-react";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
 function Navbar({
   currentPersona,
@@ -72,7 +67,7 @@ function Navbar({
                       Try asking about:
                     </p>
                     <div className="flex flex-wrap gap-1">
-                      {currentPersona.examples.map((example, i) => (
+                        {currentPersona.examples.map((example: string, i: number) => (
                         <Badge
                           key={i}
                           variant="outline"
@@ -80,7 +75,7 @@ function Navbar({
                         >
                           {example}
                         </Badge>
-                      ))}
+                        ))}
                     </div>
                   </div>
                 </div>
