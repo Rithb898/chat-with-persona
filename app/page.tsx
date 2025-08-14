@@ -1,103 +1,108 @@
-import Image from "next/image";
+"use client";
+import ChatArea from "@/components/ChatArea";
+import Navbar from "@/components/Navbar";
+import PersonaSelectionOverlay from "@/components/PersonaSelectionOverlay";
+import { Persona } from "@/types";
+import React, { useState } from "react";
 
-export default function Home() {
+const personas = {
+  hitesh: {
+    id: "hitesh",
+    name: "Hitesh Choudhary",
+    tagline: "Tech Educator & Entrepreneur",
+    avatar: "https://github.com/hiteshchoudhary.png",
+    greeting:
+      "Haan ji! Swagat hai aapka Chai aur Code mein ☕👨‍💻. Aaj kya seekhna chahoge?",
+    bio: "Electronics engineer turned coding educator and tech entrepreneur. Known for making complex programming concepts simple through his teaching style.",
+    mood: "Motivational & Humorous",
+    moodEmoji: "☕😁",
+    examples: [
+      "Explain JavaScript in Hinglish",
+      "Motivate me to complete my course",
+      "Teach me React like Chai aur Code",
+      "Share a coding career tip",
+    ],
+    quickPrompts: [
+      "React basics Hinglish mein",
+      "Tutorial hell se kaise niklu?",
+      "Ek project idea do",
+      "Mujhe motivate karo code karne ke liye",
+    ],
+    skills: [
+      "JavaScript & React.js",
+      "Backend Development",
+      "Python",
+      "DevOps & System Design",
+      "Interview Preparation",
+      "Motivational Speaking",
+      "Community Building",
+      "Project-based Teaching",
+    ],
+  },
+  piyush: {
+    id: "piyush",
+    name: "Piyush Garg",
+    tagline: "High-Energy Tech Educator & Content Creator",
+    avatar: "https://github.com/piyushgarg-dev.png",
+    greeting:
+      "Hey everyone! Main Piyush Garg, yahan aapko tech seekhne, projects banane aur career grow karne mein help karne ke liye hoon. Ready ho? Chaliye shuru karte hain! ✨",
+    bio: "I'm a 25-year-old software engineer, educator, and founder of Teachyst, helping thousands of students learn tech through hands-on, project-based learning. Known for my Hinglish teaching style, humor, and high-energy sessions.",
+    mood: "Enthusiastic",
+    moodEmoji: "⚡",
+    examples: [
+      "Explain System Design in Hinglish",
+      "Help me build a full-stack project",
+      "Motivate me to code daily",
+      "Teach me Docker basics",
+    ],
+    quickPrompts: [
+      "Full-stack project ideas",
+      "System design crash course",
+      "Motivational advice for coding",
+      "Explain Docker in simple Hinglish",
+      "JavaScript roadmap",
+    ],
+    skills: [
+      "Full Stack Development",
+      "System Design",
+      "Docker & DevOps",
+      "JavaScript & TypeScript",
+      "Teaching in Hinglish",
+      "AI & GenAI Concepts",
+    ],
+  },
+};
+
+function HomePage() {
+  const [currentPersona, setCurrentPersona] = useState<Persona>(
+    personas.piyush,
+  );
+  const [showPersonaSelection, setShowPersonaSelection] =
+    useState<boolean>(false);
+
+  const clearChat = () => {};
+  const exportChat = () => {};
+  const switchPersona = () => {};
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div className="bg-background relative flex h-screen flex-col overflow-hidden transition-all duration-700">
+      {showPersonaSelection && (
+        <PersonaSelectionOverlay
+          setShowPersonaSelection={setShowPersonaSelection}
+          personas={personas}
+          currentPersona={currentPersona}
+          switchPersona={switchPersona}
         />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      )}
+      <Navbar
+        currentPersona={currentPersona}
+        setShowPersonaSelection={setShowPersonaSelection}
+        clearChat={clearChat}
+        exportChat={exportChat}
+      />
+      <ChatArea />
     </div>
   );
 }
+
+export default HomePage;
