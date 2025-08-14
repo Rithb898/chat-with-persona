@@ -18,7 +18,10 @@ function PersonaSelectionOverlay({
   switchPersona: (id: string | number) => void;
 }) {
   return (
-    <div className="bg-background/80 fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div 
+      className="bg-background/80 fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+      onClick={() => setShowPersonaSelection(false)}
+    >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (
           <div
@@ -33,7 +36,10 @@ function PersonaSelectionOverlay({
         ))}
       </div>
 
-      <div className="bg-card border-border relative z-10 max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl border p-8 shadow-2xl">
+      <div 
+        className="bg-card border-border relative z-10 max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl border p-8 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="mb-8 flex items-center justify-between">
           <h2 className="text-card-foreground text-3xl font-bold">
             Choose Your AI Companion

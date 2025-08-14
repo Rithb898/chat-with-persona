@@ -1,9 +1,10 @@
 "use client";
-import ChatArea from "@/components/ChatArea";
-import Navbar from "@/components/Navbar";
-import PersonaSelectionOverlay from "@/components/PersonaSelectionOverlay";
-import { Persona } from "@/types";
-import React, { useState } from "react";
+import ChatArea from "@/components/chat/ChatArea";
+import InputArea from "@/components/chat/InputArea";
+import Navbar from "@/components/navigation/Navbar";
+import PersonaSelectionOverlay from "@/components/overlays/PersonaSelectionOverlay";
+import { Message, Persona } from "@/types";
+import React, { useRef, useState } from "react";
 
 const personas = {
   hitesh: {
@@ -79,10 +80,68 @@ function HomePage() {
   );
   const [showPersonaSelection, setShowPersonaSelection] =
     useState<boolean>(false);
+  // const [messages, setMessages] = useState<Message[]>([
+  //   {
+  //     id: "1",
+  //     content:
+  //       "Hey everyone! Main Piyush Garg, yahan aapko tech seekhne, projects banane aur career grow karne mein help karne ke liye hoon. Ready ho? Chaliye shuru karte hain! ✨",
+  //     sender: "assistant",
+  //     timestamp: new Date(Date.now() - 300000),
+  //   },
+  //   {
+  //     id: "2",
+  //     content:
+  //       "Hi Piyush! I want to learn full-stack development. Can you guide me?",
+  //     sender: "user",
+  //     timestamp: new Date(Date.now() - 240000),
+  //   },
+  //   {
+  //     id: "3",
+  //     content:
+  //       "Bilkul! Full-stack development ek amazing journey hai. **Frontend** mein aap HTML, CSS, JavaScript seekhoge, phir **React** ya **Next.js**. Backend ke liye **Node.js** with **Express**, aur database ke liye **MongoDB** ya **PostgreSQL**. \n\nMera suggestion hai - ek simple project se start karo, jaise ek *todo app* ya *blog website*. Practice makes perfect! 💪",
+  //     sender: "assistant",
+  //     timestamp: new Date(Date.now() - 180000),
+  //   },
+  //   {
+  //     id: "4",
+  //     content:
+  //       "That sounds great! What project should I start with as a beginner?",
+  //     sender: "user",
+  //     timestamp: new Date(Date.now() - 120000),
+  //   },
+  //   {
+  //     id: "5",
+  //     content:
+  //       "Perfect question! Beginners ke liye main recommend karta hoon:\n\n1. **Personal Portfolio** - Apna introduction, skills showcase\n2. **Weather App** - API integration seekhoge\n3. **Task Manager** - CRUD operations practice\n4. **E-commerce Clone** - Advanced level ke liye\n\nStart with portfolio, phir gradually complex projects banao. Remember - `consistency > perfection`! Har din thoda sa code karo, magic hoga! ⚡",
+  //     sender: "assistant",
+  //     timestamp: new Date(Date.now() - 60000),
+  //   },
+  // ]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [showQuickPrompts, setShowQuickPrompts] = useState(true);
+  const [inputValue, setInputValue] = useState("");
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const clearChat = () => {};
   const exportChat = () => {};
   const switchPersona = () => {};
+  const speakMessage = () => {};
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  };
+  const handleKeyPress = () => {};
+  const handleSendMessage = () => {};
+  const parseMarkdown = (text: string) => {
+    return text
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.*?)\*/g, "<em>$1</em>")
+      .replace(
+        /`(.*?)`/g,
+        '<code class="bg-accent px-1 py-0.5 rounded text-sm text-accent-foreground">$1</code>',
+      );
+  };
 
   return (
     <div className="bg-background relative flex h-screen flex-col overflow-hidden transition-all duration-700">
@@ -100,7 +159,26 @@ function HomePage() {
         clearChat={clearChat}
         exportChat={exportChat}
       />
-      <ChatArea />
+      <ChatArea
+        messages={messages}
+        currentPersona={currentPersona}
+        setShowPersonaSelection={setShowPersonaSelection}
+        parseMarkdown={parseMarkdown}
+        speakMessage={speakMessage}
+        formatTime={formatTime}
+        isTyping={isTyping}
+        messagesEndRef={messagesEndRef}
+      />
+      <InputArea
+        showQuickPrompts={showQuickPrompts}
+        messages={messages}
+        currentPersona={currentPersona}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+        inputRef={inputRef}
+        handleKeyPress={handleKeyPress}
+        handleSendMessage={handleSendMessage}
+      />
     </div>
   );
 }
