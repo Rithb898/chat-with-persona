@@ -1,29 +1,32 @@
 import { Message, Persona } from "@/types";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Sparkles, Volume2 } from "lucide-react";
+import { Volume2 } from "lucide-react";
 import { Button } from "../ui/button";
 import TypingIndicator from "./TypingIndicator";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function ChatArea({
   messages,
-  currentPersona,
-  setShowPersonaSelection,
   parseMarkdown,
   speakMessage,
   formatTime,
   isTyping,
   messagesEndRef,
+  currentPersona,
+  setShowPersonaSelection
 }: {
   messages: Message[];
-  currentPersona: Persona;
-  setShowPersonaSelection: any;
   parseMarkdown: (content: string) => string;
   speakMessage: (message: Message) => void;
   formatTime: (timestamp: Date) => string;
   isTyping: boolean;
   messagesEndRef: any;
+  currentPersona: Persona;
+  setShowPersonaSelection: (show: boolean) => void;
 }) {
+  
   return (
     <main className="flex-1 overflow-hidden">
       <div className="mx-auto flex h-full max-w-4xl flex-col">
@@ -42,9 +45,6 @@ function ChatArea({
                         {currentPersona.name[0]}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="absolute -top-4 -right-4">
-                      <Sparkles className="text-primary h-8 w-8 animate-pulse" />
-                    </div>
                   </div>
                   <div className="space-y-4">
                     <h2 className="animate-in fade-in slide-in-from-bottom text-foreground text-3xl font-bold duration-700">
@@ -73,7 +73,7 @@ function ChatArea({
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div
-                    className={`flex max-w-xs items-start space-x-2 sm:max-w-md lg:max-w-lg ${message.sender === "user" ? "flex-row-reverse space-x-reverse" : ""}`}
+                    className={`flex max-w-xs items-start space-x-2 sm:max-w-lg lg:max-w-2xl ${message.sender === "user" ? "flex-row-reverse space-x-reverse" : ""}`}
                   >
                     {message.sender === "assistant" && (
                       <Avatar className="animate-float border-border mt-1 h-8 w-8 border hover:animate-bounce">
@@ -91,16 +91,29 @@ function ChatArea({
                       <div
                         className={`px-4 py-3 transition-all duration-300 hover:scale-[1.02] ${
                           message.sender === "user"
-                            ? "bg-primary text-foreground rounded-[20px] rounded-br-[8px] shadow-lg"
+                            ? "bg-primary text-foreground font-semibold rounded-[20px] rounded-br-[8px] shadow-lg"
                             : "bg-card text-card-foreground border-border rounded-[20px] rounded-bl-[8px] border shadow-lg"
                         }`}
                       >
-                        <div
-                          className="text-sm leading-relaxed"
-                          dangerouslySetInnerHTML={{
-                            __html: parseMarkdown(message.content),
-                          }}
-                        />
+                        <div className="text-sm font-semibold">
+                          {message.content.split('```').map((block, index) => {
+                            if (index % 2 === 0) {
+                              return <div key={index} dangerouslySetInnerHTML={{ __html: parseMarkdown(block.trim()) }} />;
+                            } else {
+                              const [language, ...code] = block.split('\n');
+                              const codeContent = code.join('\n').trim();
+                              return (
+                                <SyntaxHighlighter
+                                  key={index}
+                                  language={language || 'text'}
+                                  style={oneDark}
+                                >
+                                  {codeContent}
+                                </SyntaxHighlighter>
+                              );
+                            }
+                          })}
+                        </div>
                         {message.sender === "assistant" && (
                           <Button
                             variant="ghost"

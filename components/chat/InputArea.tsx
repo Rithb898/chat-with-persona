@@ -7,21 +7,24 @@ import { Send } from "lucide-react";
 function InputArea({
   showQuickPrompts,
   messages,
-  currentPersona,
   inputValue,
   setInputValue,
   inputRef,
   handleKeyPress,
   handleSendMessage,
+  currentPersona,
 }: {
   showQuickPrompts: boolean;
   messages: Message[];
-  currentPersona: Persona;
   inputValue: string;
   setInputValue: (value: string) => void;
   inputRef: any;
-  handleKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  handleKeyPress: (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    currentPersona: Persona,
+  ) => void;
   handleSendMessage: () => void;
+  currentPersona: Persona;
 }) {
   return (
     <div className="bg-card/90 border-border sticky bottom-0 border-t shadow-lg backdrop-blur-md">
@@ -49,7 +52,7 @@ function InputArea({
               ref={inputRef}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={handleKeyPress}
+              onKeyDown={(e) => handleKeyPress(e, currentPersona)}
               placeholder={`Message ${currentPersona.name}...`}
               className="bg-input border-border text-foreground placeholder:text-muted-foreground focus:ring-ring h-12 rounded-full pr-14 text-base shadow-inner transition-all duration-200 focus:ring-2"
             />

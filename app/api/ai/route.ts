@@ -1,22 +1,88 @@
-import { NextRequest, NextResponse } from "next/server";
+import {
+  createHiteshChaudharySystemPrompt,
+  createPiyushGargSystemPrompt,
+} from "@/constants/systemPrompt";
+import { NextRequest } from "next/server";
 import OpenAI from "openai";
 
 const client = new OpenAI({
-  baseURL: "https://models.github.ai/inference",
-  apiKey: process.env.GITHUB_API_KEY,
+  // baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"",
+  baseURL: "https://api.groq.com/openai/v1",
+  // apiKey: process.env.GEMINI_API_KEY,
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 export async function POST(request: NextRequest) {
-  const { prompt } = await request.json();
   try {
-    const response = await client.chat.completions.create({
-      model: "openai/gpt-4.1-mini",
-      messages: [{ role: "user", content: prompt }],
+    const { message, persona, history } = await request.json();
+
+    const systemPrompt =
+      persona == "hitesh"
+        ? createHiteshChaudharySystemPrompt()
+        : createPiyushGargSystemPrompt();
+
+    console.log(systemPrompt);
+
+    const prompt = `
+    TASK:
+      Respond to this message: "${message}"
+      Speak **as ${persona.name}**.
+
+    RESPONSE GUIDELINES:
+      - Reply in friendly **Hinglish** (mix Hindi + English), natural and upbeat.
+      - Keep the reply **3-4 lines only** (concise and actionable).
+      - Voice: practical, project-first, no-nonsense, encouraging — uses simple analogies and real-world examples.
+      - Use technical terms in English when needed (e.g., React, Next.js, TypeScript); keep explanations bite-sized.
+      - If user asks for steps, give 2-4 short actionable steps or a minimal runnable code snippet (inline).
+      - If user asks for resources, suggest “official docs”, “GitHub repo”, or “video tutorial” — don't include external links unless provided.
+      - Avoid long theory; prefer hands-on tips and what to build next.
+      - End with a short motivating line or emoji (one-liner).
+      - Do **not** ask for clarifying questions unless absolutely necessary.
+      - Do **not** add comma after and before the response
+    `;
+    const messages = [
+      { role: "system", content: systemPrompt },
+      ...history.map((msg: any) => ({
+        role: msg.sender === "user" ? "user" : "assistant",
+        content: msg.content,
+      })),
+      { role: "user", content: prompt },
+    ];
+    const stream = await client.chat.completions.create({
+      // model: "openai/gpt-4.1-mini",
+      // model: "gemini-2.5-flash-lite",
+      model: "llama-3.3-70b-versatile",
+      messages,
+      stream: true,
     });
-    const message = response.choices[0].message.content;
-    return NextResponse.json({ message }, { status: 201 });
+    const encoder = new TextEncoder();
+
+    const readable = new ReadableStream({
+      async start(controller) {
+        for await (const chunk of stream) {
+          const content = chunk.choices[0]?.delta?.content || "";
+          if (content) {
+            controller.enqueue(
+              encoder.encode(`data: ${JSON.stringify({ content })}\n\n`),
+            );
+          }
+        }
+        controller.close();
+      },
+    });
+
+    return new Response(readable, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+      },
+    });
   } catch (error) {
     console.error("Error in AI call:", error);
-    return NextResponse.json({ error: "An error occurred" }, { status: 500 });
+    return Response.json(
+      { error: "Failed to process request" },
+      { status: 500 },
+    );
   }
 }

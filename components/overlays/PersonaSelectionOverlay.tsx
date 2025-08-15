@@ -15,7 +15,7 @@ function PersonaSelectionOverlay({
   setShowPersonaSelection: any;
   personas: { [key: string]: Persona } | Persona[];
   currentPersona: Persona;
-  switchPersona: (id: string | number) => void;
+  switchPersona: (id: "hitesh" | "piyush") => void;
 }) {
   return (
     <div 

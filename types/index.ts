@@ -1,5 +1,5 @@
 export interface Persona {
-  id: string | number;
+  id: "hitesh" | "piyush";
   name: string;
   avatar?: string;
   tagline?: string;
@@ -12,8 +12,8 @@ export interface Persona {
 }
 
 export interface Message {
-  id: string
-  content: string
-  sender: "user" | "assistant"
-  timestamp: Date
+  id: string;
+  content: string;
+  sender: "user" | "assistant";
+  timestamp: Date;
 }

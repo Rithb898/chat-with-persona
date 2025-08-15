@@ -1,10 +1,20 @@
 import React from "react";
-import { Download, MoreVertical, Trash2 } from "lucide-react";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
+import { Download, Github, MoreVertical, Trash2 } from "lucide-react";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "../ui/hover-card";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import Link from "next/link";
 
 function Navbar({
   currentPersona,
@@ -24,9 +34,9 @@ function Navbar({
           <div className="flex items-center space-x-4">
             <HoverCard>
               <HoverCardTrigger asChild>
-                <Avatar className="animate-float border-primary/20 h-12 w-12 cursor-pointer border-2 transition-all duration-300 hover:scale-110 hover:animate-none">
+                <Avatar className="animate-float border-primary/20 h-10 w-10 cursor-pointer border-2 transition-all duration-300 hover:scale-110 hover:animate-none md:h-12 md:w-12">
                   <AvatarImage
-                    src={currentPersona.avatar || "/placeholder.svg"}
+                    src={currentPersona.avatar}
                     alt={currentPersona.name}
                   />
                   <AvatarFallback className="bg-primary text-primary-foreground">
@@ -37,9 +47,9 @@ function Navbar({
               <HoverCardContent className="bg-card border-border w-80">
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
-                    <Avatar className="border-border h-12 w-12 border">
+                    <Avatar className="border-border h-10 w-10 border md:h-12 md:w-12">
                       <AvatarImage
-                        src={currentPersona.avatar || "/placeholder.svg"}
+                        src={currentPersona.avatar}
                         alt={currentPersona.name}
                       />
                       <AvatarFallback className="bg-secondary text-secondary-foreground">
@@ -62,29 +72,13 @@ function Navbar({
                   <p className="text-muted-foreground text-sm">
                     {currentPersona.bio}
                   </p>
-                  <div>
-                    <p className="text-card-foreground mb-2 text-xs font-medium">
-                      Try asking about:
-                    </p>
-                    <div className="flex flex-wrap gap-1">
-                        {currentPersona.examples.map((example: string, i: number) => (
-                        <Badge
-                          key={i}
-                          variant="outline"
-                          className="border-border text-muted-foreground text-xs"
-                        >
-                          {example}
-                        </Badge>
-                        ))}
-                    </div>
-                  </div>
                 </div>
               </HoverCardContent>
             </HoverCard>
 
             <div className="flex-1">
               <div className="flex items-center space-x-2">
-                <h1 className="text-card-foreground text-xl font-bold transition-all duration-300">
+                <h1 className="text-card-foreground text-md font-bold transition-all duration-300 md:text-xl">
                   {currentPersona.name}
                 </h1>
                 <span className="animate-bounce text-xl">
@@ -139,6 +133,9 @@ function Navbar({
           </div>
         </div>
       </div>
+      <Link href="https://github.com/Rithb898/chat-with-persona" target="_blank" className="absolute top-0 right-10 m-4 bg-black/50 rounded-full cursor-pointer">
+        <Github className="size-12 p-2.5" />
+      </Link>
     </header>
   );
 }
