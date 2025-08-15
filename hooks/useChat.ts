@@ -4,7 +4,7 @@ import { personas as importedPersonas } from "@/constants/persona";
 import { useMoodSystem } from "./useMoodSystem";
 import { hiteshMoods, piyushMoods } from "@/constants/moods";
 
-const personas = {
+export const personas = {
   hitesh: {
     id: "hitesh" as const,
     name: importedPersonas[0].name,
@@ -146,8 +146,6 @@ export function useChat() {
   // };
 
   const handleSendMessage = async (content: string, persona: Persona) => {
-    // Update mood based on user message
-    moodSystem.updateMoodBasedOnMessage(content);
     
     const newMessage: Message = {
       id: Date.now().toString(),
@@ -237,6 +235,14 @@ export function useChat() {
     if (e.key === "Enter" && !e.shiftKey && inputValue.trim()) {
       e.preventDefault();
       handleSendMessage(inputValue, currentPersona);
+    }
+    if (e.key === "Enter" && e.ctrlKey && inputValue.trim()) {
+      e.preventDefault();
+      handleSendMessage(inputValue, currentPersona);
+    }
+    if (e.key === "Escape") {
+      e.preventDefault();
+      setInputValue("");
     }
   };
 

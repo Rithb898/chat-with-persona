@@ -17,19 +17,22 @@ An interactive AI-powered chat application featuring two popular Indian tech edu
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - pnpm (recommended) or npm
 - Groq API key
 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/Rithb898/chat-with-persona
-cd persona-project
+cd chat-with-persona
 ```
 
 2. Install dependencies:
+
 ```bash
 pnpm install
 # or
@@ -37,15 +40,14 @@ npm install
 ```
 
 3. Set up environment variables:
-```bash
-cp .env.example .env
-```
-Add your Groq API key to `.env`:
+   Create a `.env` file in the root directory:
+
 ```
 GROQ_API_KEY=your_groq_api_key_here
 ```
 
 4. Run the development server:
+
 ```bash
 pnpm dev
 # or
@@ -57,12 +59,14 @@ npm run dev
 ## 🎭 Personas
 
 ### Hitesh Choudhary
+
 - **Style**: Hinglish, chai lover, motivational
 - **Specialties**: Full-stack development, career guidance, practical coding
 - **Moods**: Motivational, Chill, Focused, Humorous
 - **Signature**: "Chai pe charcha" approach to learning
 
-### Piyush Garg  
+### Piyush Garg
+
 - **Style**: Enthusiastic, analytical, project-focused
 - **Specialties**: System design, Docker, modern web development
 - **Moods**: Enthusiastic, Analytical, Creative, Mentor
@@ -74,8 +78,9 @@ npm run dev
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **UI Components**: Radix UI
-- **Animations**: Framer Motion
-- **AI**: ChatGPT Open Source Model (gpt-oss-120b) via Groq with streaming
+- **Animations**: Motion
+- **AI**: OpenAI GPT models via Groq with streaming
+- **Markdown**: react-markdown with syntax highlighting
 - **State Management**: React Hooks
 - **Theme**: next-themes
 
@@ -92,6 +97,7 @@ npm run dev
 │   ├── navigation/      # Navigation components
 │   ├── overlays/        # Modal overlays
 │   ├── providers/       # Context providers
+│   ├── sections/        # Landing page sections
 │   └── ui/              # Reusable UI components
 ├── constants/
 │   ├── persona.ts       # Persona definitions
@@ -110,19 +116,24 @@ npm run dev
 ## 🎨 Key Features Explained
 
 ### Dynamic Mood System
+
 Each persona has multiple moods that affect:
+
 - Response tone and style
-- Quick prompt suggestions  
+- Quick prompt suggestions
 - Greeting messages
 - Conversation context
 
 ### Streaming Responses
+
 Real-time AI responses using Server-Sent Events for a natural chat experience.
 
 ### Persona Switching
+
 Seamlessly switch between educators while maintaining conversation context.
 
 ### Smart UI
+
 - Typing indicators
 - Message timestamps
 - Markdown support in responses

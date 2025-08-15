@@ -1,97 +1,59 @@
 "use client";
-import ChatArea from "@/components/chat/ChatArea";
-import InputArea from "@/components/chat/InputArea";
-import Navbar from "@/components/navigation/Navbar";
-import PersonaSelectionOverlay from "@/components/overlays/PersonaSelectionOverlay";
-import { MoodNotification } from "@/components/ui/mood-notification";
-import { useChat } from "@/hooks/useChat";
-import { formatTime } from "@/lib/utils";
-import { useEffect } from "react";
-import { AnimatePresence } from "motion/react";
+
+import { useInView, useScroll, useTransform } from "motion/react";
+import React, { useRef, useState } from "react";
+import Navigation from "@/components/navigation/Navigation";
+import HeroSection from "@/components/sections/HeroSection";
+import Features from "@/components/sections/Features";
+import Mentors from "@/components/sections/Mentors";
+import Testimonials from "@/components/sections/Testimonials";
+import CTA from "@/components/sections/CTA";
+import Footer from "@/components/sections/Footer";
+import ChatModal from "@/components/sections/ChatModal";
+import { useRouter } from "next/navigation";
 
 function HomePage() {
-  const {
-    messages,
-    isTyping,
-    showQuickPrompts,
-    inputValue,
-    setInputValue,
-    messagesEndRef,
-    inputRef,
-    handleSendMessage,
-    handleKeyPress,
-    parseMarkdown,
-    clearChat,
-    exportChat,
-    currentPersona,
-    showPersonaSelection,
-    setShowPersonaSelection,
-    switchPersona,
-    personas,
-    moodSystem,
-    availableMoods,
-    changeMoodInChat,
-  } = useChat();
+  const router = useRouter();
+  const [showChatDemo] = useState(false);
 
-  const speakMessage = () => {};
+  const heroRef = useRef<HTMLDivElement>(null);
+  const featuresRef = useRef<HTMLDivElement>(null);
+  const mentorsRef = useRef<HTMLDivElement>(null);
+  const testimonialsRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
+  const { scrollY } = useScroll();
 
-  useEffect(() => {
-    const scrollToBottom = () => {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
-    scrollToBottom();
-  }, [messages]); // eslint-disable-line react-hooks/exhaustive-deps
+  const heroOpacity = useTransform(scrollY, [0, 750], [1, 0]);
+  const heroScale = useTransform(scrollY, [0, 750], [1, 0.8]);
+
+  const isHeroInView = useInView(heroRef, { once: true, margin: "-100px" });
+  const isFeaturesInView = useInView(featuresRef, { once: true, margin: "-100px" });
+  const isMentorsInView = useInView(mentorsRef, { once: true, margin: "-100px" });
+  const isTestimonialsInView = useInView(testimonialsRef, { once: true, margin: "-100px" });
+  const isCtaInView = useInView(ctaRef, { once: true, margin: "-100px" });
+  const isFooterInView = useInView(footerRef, { once: true, margin: "-100px" });
+
+  const onStartChat = () => {
+    router.push("/chat");
+  };
 
   return (
-    <div className="bg-background relative flex h-screen flex-col overflow-hidden transition-all duration-700">
-      <AnimatePresence>
-        {showPersonaSelection && (
-          <PersonaSelectionOverlay
-            setShowPersonaSelection={setShowPersonaSelection}
-            personas={personas}
-            currentPersona={currentPersona}
-            switchPersona={switchPersona}
-          />
-        )}
-      </AnimatePresence>
-      
-      <MoodNotification
-        show={moodSystem?.showMoodNotification || false}
-        moodName={moodSystem?.currentMoodState.name || ''}
-        moodEmoji={moodSystem?.currentMoodState.emoji || ''}
-        personaName={currentPersona.name}
-        onClose={() => moodSystem?.setShowMoodNotification(false)}
+    <div className="bg-background text-foreground min-h-screen overflow-x-hidden">
+      <Navigation onStartChat={onStartChat} />
+      <HeroSection
+        heroRef={heroRef}
+        heroOpacity={heroOpacity}
+        heroScale={heroScale}
+        isHeroInView={isHeroInView}
+        onStartChat={onStartChat}
       />
-      <Navbar
-        currentPersona={currentPersona}
-        setShowPersonaSelection={setShowPersonaSelection}
-        clearChat={clearChat}
-        exportChat={exportChat}
-        moodSystem={moodSystem}
-        availableMoods={availableMoods}
-        changeMoodInChat={changeMoodInChat}
-      />
-      <ChatArea
-        speakMessage={speakMessage}
-        formatTime={formatTime}
-        messages={messages}
-        isTyping={isTyping}
-        messagesEndRef={messagesEndRef}
-        parseMarkdown={parseMarkdown}
-        currentPersona={currentPersona}
-        setShowPersonaSelection={setShowPersonaSelection}
-      />
-      <InputArea
-        messages={messages}
-        showQuickPrompts={showQuickPrompts}
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-        inputRef={inputRef}
-        handleKeyPress={handleKeyPress}
-        handleSendMessage={() => handleSendMessage(inputValue, currentPersona)}
-        currentPersona={currentPersona}
-        isTyping={isTyping}
-      />
+      <Features featuresRef={featuresRef} isFeaturesInView={isFeaturesInView} />
+      <Mentors mentorsRef={mentorsRef} isMentorsInView={isMentorsInView} onStartChat={onStartChat} />
+      <Testimonials testimonialsRef={testimonialsRef} isTestimonialsInView={isTestimonialsInView} />
+      <CTA ctaRef={ctaRef} isCtaInView={isCtaInView} onStartChat={onStartChat} />
+      <Footer footerRef={footerRef} isFooterInView={isFooterInView} />
+      <ChatModal showChatDemo={showChatDemo} onClose={onStartChat} />
     </div>
   );
 }

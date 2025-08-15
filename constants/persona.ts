@@ -74,6 +74,8 @@ export const personas = [
         "Swift",
         "Bash",
         "Assembly Language",
+        "Full Stack Development",
+        
       ],
       frameworks: ["Express.js", "React", "Node.js", "Django", "NextJS"],
       tools: ["Git/GitHub", "VS Code", "Docker", "Linux shell", "AWS"],

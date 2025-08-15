@@ -93,6 +93,9 @@ function InputArea({
             </Button>
           </motion.div>
         </div>
+        <p className="text-muted-foreground text-center text-xs">
+          ⌨️ Ctrl+Enter to send • Esc to clear
+        </p>
       </div>
     </div>
   );

@@ -104,23 +104,33 @@ export function useMoodSystem(personaId: 'hitesh' | 'piyush') {
 
   // Initialize mood on mount
   useEffect(() => {
-    if (!currentMood) {
+    const savedMood = localStorage.getItem(`${personaId}-mood`);
+    if (savedMood && moods[savedMood]) {
+      setCurrentMood(savedMood);
+    } else if (!currentMood) {
       const initialMood = getMoodByTime();
       setCurrentMood(initialMood);
     }
   }, [personaId]);
 
-  // Auto mood cycling (optional - can be enabled/disabled)
+  // Save mood to localStorage when it changes
   useEffect(() => {
-    const interval = setInterval(() => {
-      // 10% chance to randomly change mood every 5 minutes
-      if (Math.random() < 0.1) {
-        cycleMood();
-      }
-    }, 5 * 60 * 1000);
+    if (currentMood) {
+      localStorage.setItem(`${personaId}-mood`, currentMood);
+    }
+  }, [currentMood, personaId]);
 
-    return () => clearInterval(interval);
-  }, [currentMood]);
+  // Auto mood cycling disabled to prevent unwanted mood changes
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     // 10% chance to randomly change mood every 5 minutes
+  //     if (Math.random() < 0.1) {
+  //       cycleMood();
+  //     }
+  //   }, 5 * 60 * 1000);
+
+  //   return () => clearInterval(interval);
+  // }, [currentMood]);
 
   return {
     currentMood,

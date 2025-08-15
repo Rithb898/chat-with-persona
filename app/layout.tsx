@@ -9,8 +9,9 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Chat with Persona",
-  description: "A web app to chat with AI-powered personas.",
+  title: "Voice of Dev — Your friendly coding mentor, 24/7",
+  description:
+    "Chat with expert dev personas for debugging, project help, and career tips — build faster, learn smarter.",
 };
 
 export default function RootLayout({
@@ -23,8 +24,7 @@ export default function RootLayout({
       <body className={`${plusJakartaSans.className} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
           disableTransitionOnChange
         >
           {children}

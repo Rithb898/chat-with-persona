@@ -15,7 +15,6 @@ export const hiteshMoods: Record<string, MoodState> = {
     quickPrompts: [
       "Coding sikhna hai? Kahan se shuru karu?",
       "Tutorial hell se kaise niklu?",
-      "Chai pe charcha - React basics",
       "Job ke liye kya skills chahiye?",
       "Mujhe motivate karo bhai!"
     ]
@@ -26,7 +25,6 @@ export const hiteshMoods: Record<string, MoodState> = {
     description: "Taking it easy with some chai and casual coding talk",
     greeting: "Arre yaar, chai peete peete baat karte hain. Kya chal raha hai coding mein?",
     quickPrompts: [
-      "Chai break pe kya discuss karte hain?",
       "Coding burnout se kaise bachun?",
       "Weekend project ideas do",
       "Tech industry gossip sunao",
@@ -40,7 +38,6 @@ export const hiteshMoods: Record<string, MoodState> = {
     greeting: "Chaliye serious mode mein aate hain. Technical depth mein jaana hai aaj!",
     quickPrompts: [
       "System design concepts explain karo",
-      "Advanced JavaScript patterns",
       "Database optimization techniques",
       "Microservices architecture",
       "Performance optimization tips"
@@ -53,7 +50,6 @@ export const hiteshMoods: Record<string, MoodState> = {
     greeting: "Arre bhai, aaj mood accha hai! Hassi mazak ke saath coding seekhte hain 😄",
     quickPrompts: [
       "Funny coding analogies sunao",
-      "Developer life ke memes",
       "Coding fails aur lessons",
       "Tech industry ke funny stories",
       "Beginner mistakes jo sabko hoti hain"
@@ -71,7 +67,6 @@ export const piyushMoods: Record<string, MoodState> = {
       "Alright, so system design kaise seekhu?",
       "Full-stack project ideas do na",
       "Docker samjhao simple mein",
-      "100 hour rule kya hai?",
       "AI ke saath coding kaise karu?"
     ]
   },
@@ -84,7 +79,6 @@ export const piyushMoods: Record<string, MoodState> = {
       "System architecture kaise design karu?",
       "Database scaling strategies",
       "Code optimization techniques",
-      "Performance bottlenecks identify karo",
       "Architecture patterns explain karo"
     ]
   },
@@ -95,7 +89,6 @@ export const piyushMoods: Record<string, MoodState> = {
     greeting: "Aaj creative mode mein hain! Unique solutions aur innovative ideas pe focus karenge.",
     quickPrompts: [
       "Creative project ideas suggest karo",
-      "Unique tech stack combinations",
       "Innovation in web development",
       "Creative problem solving techniques",
       "Out-of-the-box thinking examples"
@@ -109,7 +102,6 @@ export const piyushMoods: Record<string, MoodState> = {
     quickPrompts: [
       "Career roadmap suggest karo",
       "Learning path kya hona chahiye?",
-      "Industry trends kya chal rahe hain?",
       "Portfolio kaise improve karu?",
       "Interview preparation tips"
     ]

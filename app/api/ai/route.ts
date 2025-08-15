@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
         ? createHiteshChaudharySystemPrompt()
         : createPiyushGargSystemPrompt();
 
-    console.log(systemPrompt);
+    // console.log(systemPrompt);
 
     const moodContext = currentMood ? `
     CURRENT MOOD: You are currently in "${currentMood.name}" mood (${currentMood.emoji}). 

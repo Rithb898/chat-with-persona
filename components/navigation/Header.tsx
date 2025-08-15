@@ -1,5 +1,5 @@
 import React from "react";
-import { Download, Github, MoreVertical, Trash2 } from "lucide-react";
+import { Download, MoreVertical, SkipBack, Trash2 } from "lucide-react";
 import {
   HoverCard,
   HoverCardContent,
@@ -19,7 +19,7 @@ import { MoodIndicator } from "../chat/MoodIndicator";
 import { MoodState } from "@/constants/moods";
 import { Persona } from "@/types";
 
-function Navbar({
+function Header({
   currentPersona,
   setShowPersonaSelection,
   clearChat,
@@ -44,8 +44,13 @@ function Navbar({
 }) {
   return (
     <header className="bg-card/90 border-border sticky top-0 z-10 border-b shadow-lg backdrop-blur-md transition-all duration-300">
+      <Link href="/">
+        <div className="hidden fixed top-2 left-[425px] m-4 md:flex gap-2 items-center">
+          <SkipBack /> Back
+        </div>
+      </Link>
       <div className="mx-auto max-w-4xl px-4 py-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center space-x-4">
             <HoverCard>
               <HoverCardTrigger asChild>
@@ -109,7 +114,7 @@ function Navbar({
             </div>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex justify-end items-center space-x-2">
             {moodSystem && availableMoods && (
               <MoodIndicator
                 persona={currentPersona}
@@ -124,7 +129,7 @@ function Navbar({
               onClick={() => setShowPersonaSelection(true)}
               className="border-border hover:bg-accent hover:text-accent-foreground cursor-pointer rounded-full transition-all duration-300 hover:scale-105"
             >
-              Switch Persona
+              Switch Mentor
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -159,15 +164,8 @@ function Navbar({
           </div>
         </div>
       </div>
-      <Link
-        href="https://github.com/Rithb898/chat-with-persona"
-        target="_blank"
-        className="absolute top-0 right-10 m-4 cursor-pointer rounded-full bg-black/50"
-      >
-        <Github className="size-12 p-2.5" />
-      </Link>
     </header>
   );
 }
 
-export default Navbar;
+export default Header;

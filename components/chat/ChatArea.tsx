@@ -1,32 +1,31 @@
 import { Message, Persona } from "@/types";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Volume2 } from "lucide-react";
+
 import { Button } from "../ui/button";
 import TypingIndicator from "./TypingIndicator";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function ChatArea({
   messages,
   parseMarkdown,
-  speakMessage,
+  // speakMessage,
   formatTime,
   isTyping,
   messagesEndRef,
   currentPersona,
-  setShowPersonaSelection
+  setShowPersonaSelection,
 }: {
   messages: Message[];
   parseMarkdown: (content: string) => string;
-  speakMessage: (message: Message) => void;
+  // speakMessage: (message: Message) => void;
   formatTime: (timestamp: Date) => string;
   isTyping: boolean;
   messagesEndRef: React.RefObject<HTMLDivElement | null>;
   currentPersona: Persona;
   setShowPersonaSelection: (show: boolean) => void;
 }) {
-  
   return (
     <main className="flex-1 overflow-hidden">
       <div className="mx-auto flex h-full max-w-4xl flex-col">
@@ -58,7 +57,7 @@ function ChatArea({
                       onClick={() => setShowPersonaSelection(true)}
                       className="animate-in fade-in slide-in-from-bottom border-border hover:bg-accent hover:text-accent-foreground cursor-pointer transition-all delay-400 duration-700 hover:scale-105"
                     >
-                      Meet Other AI Companions
+                      Switch Mentor
                     </Button>
                   </div>
                 </div>
@@ -69,7 +68,8 @@ function ChatArea({
               {messages.map((message, index) => (
                 <div
                   key={message.id}
-                  className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"} animate-in fade-in slide-in-from-bottom-4 duration-500`}
+                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div
                     className={`flex max-w-xs items-start space-x-2 sm:max-w-lg lg:max-w-2xl ${message.sender === "user" ? "flex-row-reverse space-x-reverse" : ""}`}
@@ -90,21 +90,28 @@ function ChatArea({
                       <div
                         className={`px-4 py-3 transition-all duration-300 hover:scale-[1.02] ${
                           message.sender === "user"
-                            ? "bg-primary text-foreground font-semibold rounded-[20px] rounded-br-[8px] shadow-lg"
+                            ? "bg-primary text-foreground rounded-[20px] rounded-br-[8px] font-semibold shadow-lg"
                             : "bg-card text-card-foreground border-border rounded-[20px] rounded-bl-[8px] border shadow-lg"
                         }`}
                       >
                         <div className="text-sm font-semibold">
-                          {message.content.split('```').map((block) => {
-                            if (index % 2 === 0) {
-                              return <div key={index} dangerouslySetInnerHTML={{ __html: parseMarkdown(block.trim()) }} />;
+                          {message.content.split("```").map((block, blockIndex) => {
+                            if (blockIndex % 2 === 0) {
+                              return (
+                                <div
+                                  key={blockIndex}
+                                  dangerouslySetInnerHTML={{
+                                    __html: parseMarkdown(block.trim()),
+                                  }}
+                                />
+                              );
                             } else {
-                              const [language, ...code] = block.split('\n');
-                              const codeContent = code.join('\n').trim();
+                              const [language, ...code] = block.split("\n");
+                              const codeContent = code.join("\n").trim();
                               return (
                                 <SyntaxHighlighter
-                                  key={index}
-                                  language={language || 'text'}
+                                  key={blockIndex}
+                                  language={language || "text"}
                                   style={oneDark}
                                 >
                                   {codeContent}
@@ -113,7 +120,7 @@ function ChatArea({
                             }
                           })}
                         </div>
-                        {message.sender === "assistant" && (
+                        {/* {message.sender === "assistant" && (
                           <Button
                             variant="ghost"
                             size="sm"
@@ -122,7 +129,7 @@ function ChatArea({
                           >
                             <Volume2 className="h-3 w-3" />
                           </Button>
-                        )}
+                        )} */}
                       </div>
                       <p
                         className={`text-muted-foreground px-2 text-xs ${message.sender === "user" ? "text-right" : "text-left"}`}

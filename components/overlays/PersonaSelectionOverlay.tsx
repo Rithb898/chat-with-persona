@@ -55,7 +55,7 @@ function PersonaSelectionOverlay({
       >
         <div className="mb-8 flex items-center justify-between">
           <h2 className="text-card-foreground text-3xl font-bold">
-            Choose Your AI Companion
+            Choose Your Tech Mentor
           </h2>
           <Button
             variant="ghost"
@@ -119,7 +119,7 @@ function PersonaSelectionOverlay({
 
                 <div>
                   <p className="text-card-foreground mb-3 text-xs font-medium">
-                    Specializes in:
+                    Expertise:
                   </p>
                   <div className="flex flex-wrap justify-center gap-2">
                     {persona.skills.map((skill, i) => (
