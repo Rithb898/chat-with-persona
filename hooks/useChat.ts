@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Message, Persona } from "@/types";
 import { personas as importedPersonas } from "@/constants/persona";
+import { useMoodSystem } from "./useMoodSystem";
+import { hiteshMoods, piyushMoods } from "@/constants/moods";
 
 const personas = {
   hitesh: {
@@ -62,6 +64,9 @@ export function useChat() {
     personas.hitesh,
   );
   const [showPersonaSelection, setShowPersonaSelection] = useState(false);
+  
+  // Mood system integration
+  const moodSystem = useMoodSystem(currentPersona.id);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -141,6 +146,9 @@ export function useChat() {
   // };
 
   const handleSendMessage = async (content: string, persona: Persona) => {
+    // Update mood based on user message
+    moodSystem.updateMoodBasedOnMessage(content);
+    
     const newMessage: Message = {
       id: Date.now().toString(),
       content,
@@ -169,6 +177,7 @@ export function useChat() {
           message: content,
           persona: persona.id,
           history: messages,
+          currentMood: moodSystem.currentMoodState,
         }),
       });
 
@@ -255,11 +264,44 @@ export function useChat() {
 
   const switchPersona = (personaId: "hitesh" | "piyush") => {
     setMessages([]);
-    setCurrentPersona(personas[personaId]);
+    const basePersona = personas[personaId];
+    setCurrentPersona({
+      ...basePersona,
+      currentMoodKey: moodSystem.currentMood,
+      dynamicMood: {
+        name: moodSystem.currentMoodState.name,
+        emoji: moodSystem.currentMoodState.emoji,
+        description: moodSystem.currentMoodState.description
+      },
+      greeting: moodSystem.currentMoodState.greeting,
+      quickPrompts: moodSystem.currentMoodState.quickPrompts
+    });
     setShowPersonaSelection(false);
-    setShowQuickPrompts(true)
+    setShowQuickPrompts(true);
     localStorage.setItem("selectedPersona", personaId);
   };
+  
+  const changeMoodInChat = (moodKey: string) => {
+    moodSystem.changeMood(moodKey);
+  };
+  
+  // Update persona when mood changes
+  useEffect(() => {
+    if (moodSystem.currentMood) {
+      const basePersona = personas[currentPersona.id];
+      setCurrentPersona(prev => ({
+        ...prev,
+        currentMoodKey: moodSystem.currentMood,
+        dynamicMood: {
+          name: moodSystem.currentMoodState.name,
+          emoji: moodSystem.currentMoodState.emoji,
+          description: moodSystem.currentMoodState.description
+        },
+        greeting: moodSystem.currentMoodState.greeting,
+        quickPrompts: moodSystem.currentMoodState.quickPrompts
+      }));
+    }
+  }, [moodSystem.currentMood, moodSystem.currentMoodState]);
 
   return {
     messages,
@@ -279,5 +321,8 @@ export function useChat() {
     setShowPersonaSelection,
     switchPersona,
     personas,
+    moodSystem,
+    availableMoods: currentPersona.id === 'hitesh' ? hiteshMoods : piyushMoods,
+    changeMoodInChat,
   };
 }

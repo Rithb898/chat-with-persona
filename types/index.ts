@@ -9,6 +9,12 @@ export interface Persona {
   skills: string[];
   greeting: string;
   quickPrompts: string[];
+  currentMoodKey?: string;
+  dynamicMood?: {
+    name: string;
+    emoji: string;
+    description: string;
+  };
 }
 
 export interface Message {

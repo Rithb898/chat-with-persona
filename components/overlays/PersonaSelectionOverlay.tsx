@@ -94,7 +94,10 @@ function PersonaSelectionOverlay({
                     variant="secondary"
                     className="bg-secondary text-secondary-foreground px-3 py-1 text-sm"
                   >
-                    {persona.mood} {persona.moodEmoji}
+                    {persona.dynamicMood ? 
+                      `${persona.dynamicMood.name} ${persona.dynamicMood.emoji}` : 
+                      `${persona.mood} ${persona.moodEmoji}`
+                    }
                   </Badge>
                 </div>
 

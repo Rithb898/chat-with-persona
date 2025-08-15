@@ -15,17 +15,31 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import Link from "next/link";
+import { MoodIndicator } from "../chat/MoodIndicator";
+import { MoodState } from "@/constants/moods";
 
 function Navbar({
   currentPersona,
   setShowPersonaSelection,
   clearChat,
   exportChat,
+  moodSystem,
+  availableMoods,
+  changeMoodInChat,
 }: {
   currentPersona: any;
   setShowPersonaSelection: any;
   clearChat: () => void;
   exportChat: () => void;
+  moodSystem?: {
+    currentMood: string;
+    currentMoodState: MoodState;
+    availableMoods: string[];
+    changeMood: (mood: string) => void;
+    cycleMood: () => void;
+  };
+  availableMoods?: Record<string, MoodState>;
+  changeMoodInChat?: (mood: string) => void;
 }) {
   return (
     <header className="bg-card/90 border-border sticky top-0 z-10 border-b shadow-lg backdrop-blur-md transition-all duration-300">
@@ -64,7 +78,10 @@ function Navbar({
                         variant="secondary"
                         className="bg-secondary text-secondary-foreground text-xs"
                       >
-                        {currentPersona.mood} {currentPersona.moodEmoji}
+                        {currentPersona.dynamicMood ? 
+                          `${currentPersona.dynamicMood.name} ${currentPersona.dynamicMood.emoji}` : 
+                          `${currentPersona.mood} ${currentPersona.moodEmoji}`
+                        }
                       </Badge>
                     </div>
                   </div>
@@ -82,7 +99,7 @@ function Navbar({
                   {currentPersona.name}
                 </h1>
                 <span className="animate-bounce text-xl">
-                  {currentPersona.moodEmoji}
+                  {currentPersona.dynamicMood?.emoji || currentPersona.moodEmoji}
                 </span>
               </div>
               <p className="text-muted-foreground text-sm">
@@ -92,6 +109,14 @@ function Navbar({
           </div>
 
           <div className="flex items-center space-x-2">
+            {moodSystem && availableMoods && (
+              <MoodIndicator
+                persona={currentPersona}
+                moodSystem={moodSystem}
+                availableMoods={availableMoods}
+                changeMoodInChat={changeMoodInChat}
+              />
+            )}
             <Button
               variant="outline"
               size="sm"

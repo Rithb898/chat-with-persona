@@ -14,7 +14,7 @@ const client = new OpenAI({
 
 export async function POST(request: NextRequest) {
   try {
-    const { message, persona, history } = await request.json();
+    const { message, persona, history, currentMood } = await request.json();
 
     const systemPrompt =
       persona == "hitesh"
@@ -23,10 +23,17 @@ export async function POST(request: NextRequest) {
 
     console.log(systemPrompt);
 
+    const moodContext = currentMood ? `
+    CURRENT MOOD: You are currently in "${currentMood.name}" mood (${currentMood.emoji}). 
+    ${currentMood.description}
+    Adjust your response tone and style to match this mood while staying true to your personality.
+    ` : '';
+
     const prompt = `
     TASK:
       Respond to this message: "${message}"
       Speak **as ${persona.name}**.
+      ${moodContext}
 
     RESPONSE GUIDELINES:
       - Reply in friendly **Hinglish** (mix Hindi + English), natural and upbeat.
