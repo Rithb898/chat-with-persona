@@ -36,12 +36,11 @@ function HomePage() {
   const speakMessage = () => {};
 
   useEffect(() => {
+    const scrollToBottom = () => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
     scrollToBottom();
-  }, [messages]);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, [messages]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="bg-background relative flex h-screen flex-col overflow-hidden transition-all duration-700">

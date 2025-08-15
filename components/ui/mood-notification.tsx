@@ -1,15 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Card } from './card';
 import { Badge } from './badge';
 import { Sparkles } from 'lucide-react';
-
-interface MoodNotificationProps {
-  show: boolean;
-  moodName: string;
-  moodEmoji: string;
-  personaName: string;
-  onClose: () => void;
-}
+import { MoodNotificationProps } from '@/types';
 
 export function MoodNotification({ 
   show, 

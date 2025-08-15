@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     `;
     const messages = [
       { role: "system", content: systemPrompt },
-      ...history.map((msg: any) => ({
+      ...history.map((msg: { sender: string; content: string }) => ({
         role: msg.sender === "user" ? "user" : "assistant",
         content: msg.content,
       })),

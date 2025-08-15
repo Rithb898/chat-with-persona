@@ -3,16 +3,7 @@ import { Button } from './button';
 import { Badge } from './badge';
 import { Card } from './card';
 import { Sparkles, RefreshCw } from 'lucide-react';
-import { MoodState } from '@/constants/moods';
-
-interface MoodSelectorProps {
-  currentMood: string;
-  currentMoodState: MoodState;
-  availableMoods: string[];
-  moods: Record<string, MoodState>;
-  onMoodChange: (mood: string) => void;
-  onRandomMood: () => void;
-}
+import { MoodSelectorProps } from '@/types';
 
 export function MoodSelector({
   currentMood,

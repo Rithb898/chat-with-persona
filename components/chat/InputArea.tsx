@@ -20,7 +20,7 @@ function InputArea({
   messages: Message[];
   inputValue: string;
   setInputValue: (value: string) => void;
-  inputRef: any;
+  inputRef: React.RefObject<HTMLInputElement | null>;
   handleKeyPress: (
     e: React.KeyboardEvent<HTMLInputElement>,
     currentPersona: Persona,

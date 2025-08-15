@@ -19,13 +19,13 @@ An interactive AI-powered chat application featuring two popular Indian tech edu
 ### Prerequisites
 - Node.js 18+ 
 - pnpm (recommended) or npm
-- OpenAI API key
+- Groq API key
 
 ### Installation
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/Rithb898/chat-with-persona
 cd persona-project
 ```
 
@@ -40,9 +40,9 @@ npm install
 ```bash
 cp .env.example .env
 ```
-Add your OpenAI API key to `.env`:
+Add your Groq API key to `.env`:
 ```
-OPENAI_API_KEY=your_openai_api_key_here
+GROQ_API_KEY=your_groq_api_key_here
 ```
 
 4. Run the development server:
@@ -75,7 +75,7 @@ npm run dev
 - **Styling**: Tailwind CSS
 - **UI Components**: Radix UI
 - **Animations**: Framer Motion
-- **AI**: OpenAI GPT API with streaming
+- **AI**: ChatGPT Open Source Model (gpt-oss-120b) via Groq with streaming
 - **State Management**: React Hooks
 - **Theme**: next-themes
 
@@ -135,7 +135,7 @@ Deploy easily on Vercel:
 
 1. Push your code to GitHub
 2. Connect your repository to [Vercel](https://vercel.com)
-3. Add your `OPENAI_API_KEY` environment variable
+3. Add your `GROQ_API_KEY` environment variable
 4. Deploy!
 
 ## 🤝 Contributing

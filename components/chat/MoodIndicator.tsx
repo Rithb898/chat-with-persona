@@ -1,24 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { Card } from "../ui/card";
 import { Sparkles, ChevronDown, ChevronUp } from "lucide-react";
 import { MoodSelector } from "../ui/mood-selector";
-import { Persona } from "@/types";
-import { MoodState } from "@/constants/moods";
-
-interface MoodIndicatorProps {
-  persona: Persona;
-  moodSystem: {
-    currentMood: string;
-    currentMoodState: MoodState;
-    availableMoods: string[];
-    changeMood: (mood: string) => void;
-    cycleMood: () => void;
-  };
-  availableMoods: Record<string, MoodState>;
-  changeMoodInChat?: (mood: string) => void;
-}
+import { MoodIndicatorProps } from "@/types";
 
 export function MoodIndicator({
   persona,
@@ -45,7 +30,7 @@ export function MoodIndicator({
         variant="ghost"
         size="default"
         onClick={() => setShowMoodSelector(!showMoodSelector)}
-        className="flex h-auto items-center gap-2 p-2 cursor-pointer"
+        className="flex h-auto cursor-pointer items-center gap-2 p-2"
       >
         <Sparkles className="text-primary h-3 w-3 animate-pulse" />
         <Badge variant="secondary" className="px-1.5 py-1.5 text-sm font-bold">

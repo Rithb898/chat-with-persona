@@ -1,7 +1,9 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
-function TypingIndicator({currentPersona}: {currentPersona: any}) {
+import { Persona } from "@/types";
+
+function TypingIndicator({currentPersona}: {currentPersona: Persona}) {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-2 flex items-center space-x-2 p-4 duration-300">
       <Avatar className="animate-float h-8 w-8">

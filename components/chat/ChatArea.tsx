@@ -22,7 +22,7 @@ function ChatArea({
   speakMessage: (message: Message) => void;
   formatTime: (timestamp: Date) => string;
   isTyping: boolean;
-  messagesEndRef: any;
+  messagesEndRef: React.RefObject<HTMLDivElement | null>;
   currentPersona: Persona;
   setShowPersonaSelection: (show: boolean) => void;
 }) {
@@ -48,7 +48,7 @@ function ChatArea({
                   </div>
                   <div className="space-y-4">
                     <h2 className="animate-in fade-in slide-in-from-bottom text-foreground text-3xl font-bold duration-700">
-                      Hello! I'm {currentPersona.name}
+                      Hello! I&apos;m {currentPersona.name}
                     </h2>
                     <p className="text-muted-foreground animate-in fade-in slide-in-from-bottom text-lg delay-200 duration-700">
                       {currentPersona.greeting}
@@ -95,7 +95,7 @@ function ChatArea({
                         }`}
                       >
                         <div className="text-sm font-semibold">
-                          {message.content.split('```').map((block, index) => {
+                          {message.content.split('```').map((block) => {
                             if (index % 2 === 0) {
                               return <div key={index} dangerouslySetInnerHTML={{ __html: parseMarkdown(block.trim()) }} />;
                             } else {

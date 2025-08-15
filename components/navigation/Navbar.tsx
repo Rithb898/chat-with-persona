@@ -17,6 +17,7 @@ import {
 import Link from "next/link";
 import { MoodIndicator } from "../chat/MoodIndicator";
 import { MoodState } from "@/constants/moods";
+import { Persona } from "@/types";
 
 function Navbar({
   currentPersona,
@@ -27,8 +28,8 @@ function Navbar({
   availableMoods,
   changeMoodInChat,
 }: {
-  currentPersona: any;
-  setShowPersonaSelection: any;
+  currentPersona: Persona;
+  setShowPersonaSelection: (show: boolean) => void;
   clearChat: () => void;
   exportChat: () => void;
   moodSystem?: {
