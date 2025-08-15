@@ -44,14 +44,18 @@ function Header({
 }) {
   return (
     <header className="bg-card/90 border-border sticky top-0 z-10 border-b shadow-lg backdrop-blur-md transition-all duration-300">
-      <Link href="/">
-        <div className="hidden fixed top-2 left-[425px] m-4 md:flex gap-2 items-center">
-          <SkipBack /> Back
-        </div>
-      </Link>
-      <div className="mx-auto max-w-4xl px-4 py-4">
+      <div className="mx-auto max-w-4xl py-4">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center space-x-4">
+            <Link href="/">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="flex gap-2 items-center hover:bg-accent hover:text-accent-foreground border-border transition-all duration-300 hover:scale-105 rounded-full cursor-pointer"
+              >
+                <SkipBack className="h-4 w-4" /> Back
+              </Button>
+            </Link>
             <HoverCard>
               <HoverCardTrigger asChild>
                 <Avatar className="animate-float border-primary/20 h-10 w-10 cursor-pointer border-2 transition-all duration-300 hover:scale-110 hover:animate-none md:h-12 md:w-12">
