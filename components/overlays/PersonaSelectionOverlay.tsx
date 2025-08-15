@@ -5,6 +5,7 @@ import { Sparkles, X } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import { Persona } from "@/types";
+import { motion } from "motion/react";
 
 function PersonaSelectionOverlay({
   setShowPersonaSelection,
@@ -18,7 +19,13 @@ function PersonaSelectionOverlay({
   switchPersona: (id: "hitesh" | "piyush") => void;
 }) {
   return (
-    <div 
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{
+        duration: 0.5,
+      }}
       className="bg-background/80 fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
       onClick={() => setShowPersonaSelection(false)}
     >
@@ -36,7 +43,13 @@ function PersonaSelectionOverlay({
         ))}
       </div>
 
-      <div 
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        transition={{
+          scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
+        }}
         className="bg-card border-border relative z-10 max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl border p-8 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
@@ -94,10 +107,9 @@ function PersonaSelectionOverlay({
                     variant="secondary"
                     className="bg-secondary text-secondary-foreground px-3 py-1 text-sm"
                   >
-                    {persona.dynamicMood ? 
-                      `${persona.dynamicMood.name} ${persona.dynamicMood.emoji}` : 
-                      `${persona.mood} ${persona.moodEmoji}`
-                    }
+                    {persona.dynamicMood
+                      ? `${persona.dynamicMood.name} ${persona.dynamicMood.emoji}`
+                      : `${persona.mood} ${persona.moodEmoji}`}
                   </Badge>
                 </div>
 
@@ -125,8 +137,8 @@ function PersonaSelectionOverlay({
             </Card>
           ))}
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 

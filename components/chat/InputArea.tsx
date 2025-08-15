@@ -2,7 +2,8 @@ import { Message, Persona } from "@/types";
 import React from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { Send } from "lucide-react";
+import { Send, Loader2 } from "lucide-react";
+import { motion } from "motion/react";
 
 function InputArea({
   showQuickPrompts,
@@ -13,6 +14,7 @@ function InputArea({
   handleKeyPress,
   handleSendMessage,
   currentPersona,
+  isTyping,
 }: {
   showQuickPrompts: boolean;
   messages: Message[];
@@ -25,6 +27,7 @@ function InputArea({
   ) => void;
   handleSendMessage: () => void;
   currentPersona: Persona;
+  isTyping: boolean;
 }) {
   return (
     <div className="bg-card/90 border-border sticky bottom-0 border-t shadow-lg backdrop-blur-md">
@@ -36,7 +39,10 @@ function InputArea({
                 key={i}
                 variant="outline"
                 size="sm"
-                onClick={() => setInputValue(prompt)}
+                onClick={() => {
+                  setInputValue(prompt);
+                  // handleSendMessage();
+                }}
                 className="animate-in fade-in slide-in-from-bottom bg-secondary text-secondary-foreground border-border hover:bg-accent hover:text-accent-foreground cursor-pointer rounded-full text-xs transition-all duration-500 hover:scale-105"
                 style={{ animationDelay: `${i * 100}ms` }}
               >
@@ -70,13 +76,22 @@ function InputArea({
             </Button> */}
           </div>
 
-          <Button
-            onClick={handleSendMessage}
-            disabled={!inputValue.trim()}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 animate-glow h-12 w-12 cursor-pointer rounded-full shadow-lg transition-all duration-200 hover:scale-110 active:scale-95 disabled:animate-none disabled:opacity-50"
+          <motion.div
+            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
           >
-            <Send className="h-7 w-7" />
-          </Button>
+            <Button
+              onClick={handleSendMessage}
+              disabled={!inputValue.trim() || isTyping}
+              className="bg-primary text-primary-foreground hover:bg-primary/90 h-12 w-12 cursor-pointer rounded-full shadow-lg transition-all duration-200 disabled:opacity-50"
+            >
+              {isTyping ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <Send className="h-5 w-5" />
+              )}
+            </Button>
+          </motion.div>
         </div>
       </div>
     </div>

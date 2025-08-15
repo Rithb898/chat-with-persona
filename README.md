@@ -1,36 +1,147 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Persona Chat - Tech Educators
 
-## Getting Started
+An interactive AI-powered chat application featuring two popular Indian tech educators: **Hitesh Choudhary** and **Piyush Garg**. Experience personalized conversations with dynamic mood systems, streaming responses, and authentic teaching styles.
 
-First, run the development server:
+## ✨ Features
 
+- **🎭 Dual Personas**: Chat with Hitesh Choudhary or Piyush Garg
+- **🎯 Dynamic Mood System**: Each persona has multiple moods (Motivational, Chill, Focused, Humorous, etc.)
+- **⚡ Real-time Streaming**: Live AI responses with typing indicators
+- **🌙 Dark/Light Theme**: Toggle between themes with smooth transitions
+- **💬 Smart Quick Prompts**: Context-aware conversation starters
+- **📱 Responsive Design**: Works seamlessly on all devices
+- **💾 Chat Export**: Save your conversations as JSON
+- **🔄 Persona Switching**: Switch between educators mid-conversation
+- **🎨 Modern UI**: Built with Tailwind CSS and Radix UI components
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+ 
+- pnpm (recommended) or npm
+- OpenAI API key
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd persona-project
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+pnpm install
+# or
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+```bash
+cp .env.example .env
+```
+Add your OpenAI API key to `.env`:
+```
+OPENAI_API_KEY=your_openai_api_key_here
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Run the development server:
+```bash
+pnpm dev
+# or
+npm run dev
+```
 
-## Learn More
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-To learn more about Next.js, take a look at the following resources:
+## 🎭 Personas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Hitesh Choudhary
+- **Style**: Hinglish, chai lover, motivational
+- **Specialties**: Full-stack development, career guidance, practical coding
+- **Moods**: Motivational, Chill, Focused, Humorous
+- **Signature**: "Chai pe charcha" approach to learning
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Piyush Garg  
+- **Style**: Enthusiastic, analytical, project-focused
+- **Specialties**: System design, Docker, modern web development
+- **Moods**: Enthusiastic, Analytical, Creative, Mentor
+- **Signature**: "Alright, so..." explanations with deep technical insights
 
-## Deploy on Vercel
+## 🛠️ Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: Radix UI
+- **Animations**: Framer Motion
+- **AI**: OpenAI GPT API with streaming
+- **State Management**: React Hooks
+- **Theme**: next-themes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📁 Project Structure
+
+```
+├── app/
+│   ├── api/ai/          # AI API route with streaming
+│   ├── globals.css      # Global styles
+│   ├── layout.tsx       # Root layout
+│   └── page.tsx         # Main chat interface
+├── components/
+│   ├── chat/            # Chat-related components
+│   ├── navigation/      # Navigation components
+│   ├── overlays/        # Modal overlays
+│   ├── providers/       # Context providers
+│   └── ui/              # Reusable UI components
+├── constants/
+│   ├── persona.ts       # Persona definitions
+│   ├── moods.ts         # Mood system configuration
+│   └── systemPrompt.ts  # AI system prompts
+├── hooks/
+│   ├── useChat.ts       # Main chat logic
+│   └── useMoodSystem.ts # Mood management
+├── lib/
+│   ├── prompts.ts       # AI prompt templates
+│   └── utils.ts         # Utility functions
+└── types/
+    └── index.ts         # TypeScript definitions
+```
+
+## 🎨 Key Features Explained
+
+### Dynamic Mood System
+Each persona has multiple moods that affect:
+- Response tone and style
+- Quick prompt suggestions  
+- Greeting messages
+- Conversation context
+
+### Streaming Responses
+Real-time AI responses using Server-Sent Events for a natural chat experience.
+
+### Persona Switching
+Seamlessly switch between educators while maintaining conversation context.
+
+### Smart UI
+- Typing indicators
+- Message timestamps
+- Markdown support in responses
+- Responsive design
+- Theme persistence
+
+## 🚀 Deployment
+
+Deploy easily on Vercel:
+
+1. Push your code to GitHub
+2. Connect your repository to [Vercel](https://vercel.com)
+3. Add your `OPENAI_API_KEY` environment variable
+4. Deploy!
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).

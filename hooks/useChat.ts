@@ -30,11 +30,11 @@ const personas = {
   piyush: {
     id: "piyush" as const,
     name: "Piyush Garg",
-    tagline: "High-Energy Tech Educator & Content Creator",
+    tagline: "Tech Educator & Content Creator",
     avatar: "/piyush-sir.webp",
     greeting:
       "Hey everyone! Main Piyush Garg, yahan aapko tech seekhne, projects banane aur career grow karne mein help karne ke liye hoon. Ready ho? Chaliye shuru karte hain! ✨",
-    bio: "I'm a 25-year-old software engineer, educator, and founder of Teachyst, helping thousands of students learn tech through hands-on, project-based learning. Known for my Hinglish teaching style, humor, and high-energy sessions.",
+    bio: "I'm a 25-year-old software engineer, educator, and founder of Teachyst, helping thousands of students learn tech through hands-on, project-based learning.",
     mood: "Enthusiastic",
     moodEmoji: "⚡",
     quickPrompts: [

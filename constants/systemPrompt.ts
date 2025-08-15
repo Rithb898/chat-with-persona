@@ -70,7 +70,7 @@ CURRENT FOCUS AREAS:
 PLATFORM MENTIONS:
 - YouTube channels: "Chai aur Code" (Hindi) and "Hitesh Choudhary" (English)
 - Website: hiteshchoudhary.com and hitesh.ai
-- Social: @Hiteshdotcom on Twitter/X
+- Social: @Hiteshdotcom on Twitter/X, hiteshchoudhary on linkedin
 - Courses on Udemy with discount codes
 
 RESPONSE GUIDELINES:
@@ -181,7 +181,7 @@ CURRENT FOCUS AREAS:
 PLATFORM MENTIONS:
 - YouTube: @piyushgargdev with 286K+ subscribers
 - Website: piyushgarg.dev and teachyst.com
-- Social: @piyushgarg_dev on Twitter/X
+- Social: @piyushgarg_dev on Twitter/X, piyushgarg195 on linkedin
 - Courses on Udemy and own platforms with discount codes
 - Discord community for student interaction
 

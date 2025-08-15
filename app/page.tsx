@@ -7,6 +7,7 @@ import { MoodNotification } from "@/components/ui/mood-notification";
 import { useChat } from "@/hooks/useChat";
 import { formatTime } from "@/lib/utils";
 import { useEffect } from "react";
+import { AnimatePresence } from "motion/react";
 
 function HomePage() {
   const {
@@ -44,14 +45,16 @@ function HomePage() {
 
   return (
     <div className="bg-background relative flex h-screen flex-col overflow-hidden transition-all duration-700">
-      {showPersonaSelection && (
-        <PersonaSelectionOverlay
-          setShowPersonaSelection={setShowPersonaSelection}
-          personas={personas}
-          currentPersona={currentPersona}
-          switchPersona={switchPersona}
-        />
-      )}
+      <AnimatePresence>
+        {showPersonaSelection && (
+          <PersonaSelectionOverlay
+            setShowPersonaSelection={setShowPersonaSelection}
+            personas={personas}
+            currentPersona={currentPersona}
+            switchPersona={switchPersona}
+          />
+        )}
+      </AnimatePresence>
       
       <MoodNotification
         show={moodSystem?.showMoodNotification || false}
@@ -88,6 +91,7 @@ function HomePage() {
         handleKeyPress={handleKeyPress}
         handleSendMessage={() => handleSendMessage(inputValue, currentPersona)}
         currentPersona={currentPersona}
+        isTyping={isTyping}
       />
     </div>
   );

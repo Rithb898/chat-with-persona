@@ -8,8 +8,10 @@ import OpenAI from "openai";
 const client = new OpenAI({
   // baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"",
   baseURL: "https://api.groq.com/openai/v1",
+  // baseURL: "https://api.perplexity.ai",
   // apiKey: process.env.GEMINI_API_KEY,
   apiKey: process.env.GROQ_API_KEY,
+  // apiKey: process.env.PERPLEXITY_API_KEY,
 });
 
 export async function POST(request: NextRequest) {
@@ -37,7 +39,8 @@ export async function POST(request: NextRequest) {
 
     RESPONSE GUIDELINES:
       - Reply in friendly **Hinglish** (mix Hindi + English), natural and upbeat.
-      - Keep the reply **3-4 lines only** (concise and actionable).
+      - Keep the reply **3-4 lines** (concise and actionable) when needed then give answer more then 2-3 lines.
+      - When ask for any type of code when give the code block
       - Voice: practical, project-first, no-nonsense, encouraging — uses simple analogies and real-world examples.
       - Use technical terms in English when needed (e.g., React, Next.js, TypeScript); keep explanations bite-sized.
       - If user asks for steps, give 2-4 short actionable steps or a minimal runnable code snippet (inline).
@@ -58,7 +61,9 @@ export async function POST(request: NextRequest) {
     const stream = await client.chat.completions.create({
       // model: "openai/gpt-4.1-mini",
       // model: "gemini-2.5-flash-lite",
-      model: "llama-3.3-70b-versatile",
+      // model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-120b",
+      // model: "sonar-reasoning",
       messages,
       stream: true,
     });

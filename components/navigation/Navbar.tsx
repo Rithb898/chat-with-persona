@@ -78,10 +78,9 @@ function Navbar({
                         variant="secondary"
                         className="bg-secondary text-secondary-foreground text-xs"
                       >
-                        {currentPersona.dynamicMood ? 
-                          `${currentPersona.dynamicMood.name} ${currentPersona.dynamicMood.emoji}` : 
-                          `${currentPersona.mood} ${currentPersona.moodEmoji}`
-                        }
+                        {currentPersona.dynamicMood
+                          ? `${currentPersona.dynamicMood.name} ${currentPersona.dynamicMood.emoji}`
+                          : `${currentPersona.mood} ${currentPersona.moodEmoji}`}
                       </Badge>
                     </div>
                   </div>
@@ -99,7 +98,8 @@ function Navbar({
                   {currentPersona.name}
                 </h1>
                 <span className="animate-bounce text-xl">
-                  {currentPersona.dynamicMood?.emoji || currentPersona.moodEmoji}
+                  {currentPersona.dynamicMood?.emoji ||
+                    currentPersona.moodEmoji}
                 </span>
               </div>
               <p className="text-muted-foreground text-sm">
@@ -158,7 +158,11 @@ function Navbar({
           </div>
         </div>
       </div>
-      <Link href="https://github.com/Rithb898/chat-with-persona" target="_blank" className="absolute top-0 right-10 m-4 bg-black/50 rounded-full cursor-pointer">
+      <Link
+        href="https://github.com/Rithb898/chat-with-persona"
+        target="_blank"
+        className="absolute top-0 right-10 m-4 cursor-pointer rounded-full bg-black/50"
+      >
         <Github className="size-12 p-2.5" />
       </Link>
     </header>

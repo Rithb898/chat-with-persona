@@ -69,8 +69,7 @@ function ChatArea({
               {messages.map((message, index) => (
                 <div
                   key={message.id}
-                  className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"} animate-in fade-in slide-in-from-bottom-4 duration-500`}
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
                     className={`flex max-w-xs items-start space-x-2 sm:max-w-lg lg:max-w-2xl ${message.sender === "user" ? "flex-row-reverse space-x-reverse" : ""}`}
