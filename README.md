@@ -84,6 +84,17 @@ npm run dev
 - **State Management**: React Hooks
 - **Theme**: next-themes
 
+## 📊 Data Preparation & Sample Chats
+
+### Data Sources
+- **Hitesh Choudhary**: 1M+ YouTube subscribers, 500+ videos analyzed
+- **Piyush Garg**: 286K+ YouTube subscribers, system design content
+- **Analysis**: Speech patterns, teaching styles, technical expertise
+
+See detailed documentation:
+- [DATA_PREPARATION.md](./DATA_PREPARATION.md) - Data gathering and processing
+- [SAMPLE_CHATS.md](./SAMPLE_CHATS.md) - Example conversations and persona accuracy
+
 ## 📁 Project Structure
 
 ```
